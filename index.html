@@ -2,12 +2,12 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Kreator Kart RPG - Scroll Sidebar</title>
+    <title>Kreator Kart RPG - Wersja Finalna</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap');
 
         :root {
-            /* Domyślne wartości zmiennych */
+            /* Domyślne wartości suwaków */
             --pad-top: 40px;
             --pad-side: 35px;
             --pad-bottom: 30px;
@@ -24,34 +24,28 @@
             font-family: 'Lato', sans-serif;
             display: flex;
             height: 100vh;
-            overflow: hidden; /* Ukrywa scroll strony, scrollujemy tylko sekcje */
+            overflow: hidden; 
         }
 
         /* --- PANEL LEWY (SIDEBAR) --- */
         .sidebar {
-            width: 380px;
+            width: 400px;
             background: #f8f9fa;
             padding: 15px;
-            
-            /* KLUCZOWE ZMIANY DLA SCROLLOWANIA: */
-            height: 100vh;          /* Panel ma wysokość całego okna */
-            overflow-y: auto;       /* Włącz przewijanie pionowe */
+            height: 100vh;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            flex-shrink: 0;         /* Sam panel się nie zwęża */
-            
+            flex-shrink: 0;
             border-right: 5px solid #2c3e50;
             box-shadow: 5px 0 15px rgba(0,0,0,0.3);
             z-index: 20;
         }
 
-        /* TO NAPRAWIA SCROLLOWANIE WE FLEXBOXIE: */
-        .sidebar > * {
-            flex-shrink: 0; /* Zabrania elementom ściskania się, wymuszając scroll */
-        }
+        .sidebar > * { flex-shrink: 0; }
 
-        /* Stylizacja paska przewijania (Scrollbar) */
+        /* Pasek przewijania */
         .sidebar::-webkit-scrollbar { width: 10px; }
         .sidebar::-webkit-scrollbar-track { background: #e9ecef; }
         .sidebar::-webkit-scrollbar-thumb { background: #bdc3c7; border-radius: 5px; border: 2px solid #e9ecef; }
@@ -63,18 +57,24 @@
         .edit-status {
             background: #34495e; color: white; padding: 10px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            position: sticky; top: 0; z-index: 10; /* Opcjonalne: przykleja status u góry podczas scrollowania */
+            position: sticky; top: 0; z-index: 10;
         }
 
-        /* Inputy tekstowe */
-        input[type="text"], textarea {
+        /* Inputy */
+        input[type="text"], input[type="number"], textarea, select {
             width: 100%; padding: 8px; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 0.9rem; margin-bottom: 5px;
             font-family: inherit;
         }
         
+        /* Grupa Checkboxów */
+        .checkbox-group {
+            display: flex; gap: 10px; align-items: center; background: #fff; padding: 5px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 5px;
+        }
+        .checkbox-group label { margin: 0; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.8rem;}
+
         label { display: block; font-weight: bold; font-size: 0.75rem; margin-top: 5px; margin-bottom: 2px; color: #555; }
         
-        /* Sekcje rozwijane (Details/Summary) */
+        /* Sekcje rozwijane */
         details {
             background: #ffffff;
             border: 1px solid #dcdcdc;
@@ -116,10 +116,9 @@
         .btn-json { background-color: #8e44ad; color: white; margin-bottom: 5px; }
         .btn-json:hover { background-color: #732d91; }
         
-        /* Przycisk drukuj na dole */
         .btn-print { 
             background-color: #27ae60; color: white; padding: 15px; font-size: 1.1rem; 
-            margin-top: auto; /* Pycha przycisk na sam dół kontenera */
+            margin-top: auto;
             margin-bottom: 10px;
         }
         .btn-print:hover { background-color: #219150; }
@@ -132,7 +131,7 @@
         .main-content {
             flex-grow: 1;
             background-color: #555;
-            overflow: auto; /* To scrolluje podgląd kart */
+            overflow: auto;
             padding: 40px;
             display: flex;
             justify-content: center;
@@ -145,7 +144,7 @@
             display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2mm;
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
             transform: scale(0.85); transform-origin: top center;
-            flex-shrink: 0; /* Ważne, żeby strona się nie zgniatała */
+            flex-shrink: 0;
         }
 
         /* --- KARTA --- */
@@ -172,8 +171,13 @@
         .hide-text .card-content { opacity: 0; pointer-events: none; }
 
         .card-title {
-            font-family: 'Cinzel', serif; text-align: center; font-weight: bold; font-size: 12px; margin-bottom: 5px; text-transform: uppercase;
-            text-shadow: 0 0 5px rgba(255,255,255,0.8); min-height: 15px;
+            font-family: 'Cinzel', serif; text-align: center; font-weight: bold; font-size: 12px; margin-bottom: 2px; text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8); min-height: 15px; line-height: 1.1;
+        }
+        
+        .card-meta {
+            text-align: center; font-size: 7px; color: #444; margin-bottom: 4px; font-weight: bold; text-transform: uppercase;
+            text-shadow: 0 0 3px rgba(255,255,255,0.8);
         }
 
         .stats-row {
@@ -182,15 +186,26 @@
             background: rgba(255,255,255,0.3); pointer-events: none;
         }
         
-        .stat-group { display: flex; flex-direction: column; }
+        .stat-group { display: flex; flex-direction: column; max-width: 48%; }
         .stat-group.right { text-align: right; }
-        .stat-label { font-size: 7px; font-weight: bold; color: #222; text-transform: uppercase; }
-        .stat-val { font-weight: bold; color: #000; }
+        .stat-label { font-size: 6px; font-weight: bold; color: #222; text-transform: uppercase; }
+        .stat-val { font-weight: bold; color: #000; font-size: 9px; }
 
         .description {
-            margin-top: 5px; text-align: justify; white-space: pre-wrap; flex-grow: 1; overflow: hidden;
-            font-size: var(--desc-size); line-height: var(--desc-line-height); letter-spacing: var(--desc-spacing);
+            margin-top: 5px; 
+            text-align: left; /* Zmiana: Left wygląda lepiej z pogrubionym nagłówkiem materiałów */
+            white-space: pre-wrap; 
+            flex-grow: 1; 
+            overflow: hidden;
+            font-size: var(--desc-size); 
+            line-height: var(--desc-line-height); 
+            letter-spacing: var(--desc-spacing);
             pointer-events: none;
+        }
+        
+        /* Styl dla pogrubionego materiału w opisie */
+        .description b {
+            color: #000;
         }
 
         .toggle-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
@@ -210,41 +225,64 @@
 <body>
 
     <div class="sidebar">
-        <h2>Edytor Kart RPG</h2>
+        <h2>Edytor Kart RPG (v3)</h2>
         
         <div class="edit-status" id="statusHeader">
             EDYTUJESZ KARTĘ #1
-            <div style="font-weight: normal; font-size: 0.7em; margin-top:3px;">(Kliknij inną kartę na podglądzie, aby zmienić)</div>
         </div>
 
         <div style="margin-top: 15px;">
+            <label>Podstawowe:</label>
             <input type="text" id="inName" placeholder="Nazwa Zaklęcia" oninput="updateCurrentCard()">
             
             <div style="display:flex; gap:5px;">
-                <input type="text" id="inTime" placeholder="Time" oninput="updateCurrentCard()">
+                <div style="flex:1">
+                    <input type="number" id="inLevel" placeholder="Level (0-9)" oninput="updateCurrentCard()">
+                </div>
+                <div style="flex:2">
+                    <input type="text" id="inSchool" placeholder="School (e.g. Evo)" oninput="updateCurrentCard()">
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="chkRitual" onchange="updateCurrentCard()"> Ritual</label>
+                <label><input type="checkbox" id="chkConc" onchange="updateCurrentCard()"> Concentr.</label>
+            </div>
+            
+            <label>Casting & Components:</label>
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="inTime" placeholder="Casting Time" oninput="updateCurrentCard()">
                 <input type="text" id="inRange" placeholder="Range" oninput="updateCurrentCard()">
             </div>
             
+            <div class="checkbox-group" style="justify-content: space-around;">
+                <label><input type="checkbox" id="chkV" onchange="updateCurrentCard()"> Verbal</label>
+                <label><input type="checkbox" id="chkS" onchange="updateCurrentCard()"> Somatic</label>
+                <label><input type="checkbox" id="chkM" onchange="updateCurrentCard()"> Material</label>
+            </div>
+            <textarea id="inMatDesc" rows="2" placeholder="Material Description..." oninput="updateCurrentCard()" style="font-size: 0.8em;"></textarea>
+
+            <label>Duration & Class:</label>
             <div style="display:flex; gap:5px;">
-                <input type="text" id="inComp" placeholder="Components" oninput="updateCurrentCard()">
                 <input type="text" id="inDur" placeholder="Duration" oninput="updateCurrentCard()">
+                <input type="text" id="inClass" placeholder="Class (e.g. Wizard)" oninput="updateCurrentCard()">
             </div>
             
-            <textarea id="inDesc" rows="6" placeholder="Opis..." oninput="updateCurrentCard()"></textarea>
+            <label>Description:</label>
+            <textarea id="inDesc" rows="6" placeholder="Spell description..." oninput="updateCurrentCard()"></textarea>
             
-            <button class="btn-action btn-copy" onclick="copyToAll()">Kopiuj tę treść do wszystkich kart</button>
+            <button class="btn-action btn-copy" onclick="copyToAll()">Kopiuj tę treść do wszystkich</button>
         </div>
 
         <details>
-            <summary>Zarządzanie Danymi (JSON)</summary>
+            <summary>Zarządzanie (JSON)</summary>
             <div class="details-content">
-                <button class="btn-action btn-json" onclick="downloadJSON()">Pobierz dane (Zapisz)</button>
+                <button class="btn-action btn-json" onclick="downloadJSON()">Pobierz JSON (Zapisz)</button>
                 
                 <div class="file-upload-wrapper" style="border-color: #8e44ad; background: #f4ecf7;">
                     <label style="margin-top:0;">Wczytaj plik JSON:</label>
                     <input type="file" id="jsonInput" accept=".json">
                 </div>
-                <div style="font-size: 0.7rem; color: #666; text-align: center;">Wczytanie nadpisze obecne teksty!</div>
             </div>
         </details>
 
@@ -269,7 +307,7 @@
         </details>
 
         <details open>
-            <summary>Wygląd Globalny (Marginesy/Tekst)</summary>
+            <summary>Wygląd Globalny</summary>
             <div class="details-content">
                 <div class="slider-group">
                     <label>Margines Góra: <span id="valTop">40px</span></label>
@@ -303,20 +341,50 @@
     </div>
 
     <script>
-        // --- ZMIENNE STANU ---
+        // --- DATA STRUCTURE (SEMANTIC) ---
         let currentCardIndex = 0;
-        let cardsData = Array(9).fill().map(() => ({
-            title: "", time: "", range: "", comp: "", dur: "", desc: ""
-        }));
+        
+        // Fabryka pustego zaklęcia (Schema)
+        const createEmptySpell = () => ({
+            name: "",
+            level: 0,
+            school: "",
+            meta: {
+                isRitual: false,
+                sourcebook: ""
+            },
+            casting: {
+                time: "",
+                range: "",
+                isConcentration: false,
+                duration: ""
+            },
+            components: {
+                verbal: false,
+                somatic: false,
+                material: false,
+                materialDescription: ""
+            },
+            classes: {
+                main: "",
+                subclasses: []
+            },
+            description: ""
+        });
+
+        // Inicjalizacja 9 kart
+        let cardsData = Array(9).fill().map(() => createEmptySpell());
+        
         let frontImageSrc = "";
         let backImageSrc = "";
 
-        // --- INICJALIZACJA ---
+        // --- INICJALIZACJA UI ---
         const page = document.getElementById('page');
         const cardTemplate = `
             <div class="card-bg-wrapper"><img src="" class="card-bg"></div>
             <div class="card-content">
                 <div class="card-title">NAZWA</div>
+                <div class="card-meta">LEVEL 1 SCHOOL</div>
                 <div class="stats-row">
                     <div class="stat-group"><span class="stat-label">Time</span><span class="stat-val v-time">-</span></div>
                     <div class="stat-group right"><span class="stat-label">Range</span><span class="stat-val v-range">-</span></div>
@@ -340,7 +408,7 @@
 
         selectCard(0);
 
-        // --- LOGIKA KART ---
+        // --- LOGIKA UI ---
         function selectCard(index) {
             currentCardIndex = index;
             document.querySelectorAll('.card').forEach(c => c.classList.remove('selected-card'));
@@ -349,53 +417,119 @@
             document.getElementById('statusHeader').innerHTML = `EDYTUJESZ KARTĘ #${index + 1}<div style="font-weight: normal; font-size: 0.7em; margin-top:3px;">(Kliknij inną kartę na podglądzie, aby zmienić)</div>`;
 
             const data = cardsData[index];
-            document.getElementById('inName').value = data.title || "";
-            document.getElementById('inTime').value = data.time || "";
-            document.getElementById('inRange').value = data.range || "";
-            document.getElementById('inComp').value = data.comp || "";
-            document.getElementById('inDur').value = data.dur || "";
-            document.getElementById('inDesc').value = data.desc || "";
+            
+            // Mapowanie JSON -> Pola Input
+            document.getElementById('inName').value = data.name || "";
+            document.getElementById('inLevel').value = data.level;
+            document.getElementById('inSchool').value = data.school || "";
+            
+            document.getElementById('chkRitual').checked = data.meta.isRitual;
+            document.getElementById('chkConc').checked = data.casting.isConcentration;
+
+            document.getElementById('inTime').value = data.casting.time || "";
+            document.getElementById('inRange').value = data.casting.range || "";
+            document.getElementById('inDur').value = data.casting.duration || "";
+            
+            document.getElementById('chkV').checked = data.components.verbal;
+            document.getElementById('chkS').checked = data.components.somatic;
+            document.getElementById('chkM').checked = data.components.material;
+            document.getElementById('inMatDesc').value = data.components.materialDescription || "";
+
+            document.getElementById('inClass').value = data.classes.main || "";
+            document.getElementById('inDesc').value = data.description || "";
         }
 
         function updateCurrentCard() {
-            const newData = {
-                title: document.getElementById('inName').value,
-                time: document.getElementById('inTime').value,
-                range: document.getElementById('inRange').value,
-                comp: document.getElementById('inComp').value,
-                dur: document.getElementById('inDur').value,
-                desc: document.getElementById('inDesc').value
-            };
-            cardsData[currentCardIndex] = newData;
+            // Mapowanie Pola Input -> JSON
+            const data = cardsData[currentCardIndex];
+            
+            data.name = document.getElementById('inName').value;
+            data.level = parseInt(document.getElementById('inLevel').value) || 0;
+            data.school = document.getElementById('inSchool').value;
+            
+            data.meta.isRitual = document.getElementById('chkRitual').checked;
+            data.casting.isConcentration = document.getElementById('chkConc').checked;
+            
+            data.casting.time = document.getElementById('inTime').value;
+            data.casting.range = document.getElementById('inRange').value;
+            data.casting.duration = document.getElementById('inDur').value;
+            
+            data.components.verbal = document.getElementById('chkV').checked;
+            data.components.somatic = document.getElementById('chkS').checked;
+            data.components.material = document.getElementById('chkM').checked;
+            data.components.materialDescription = document.getElementById('inMatDesc').value;
+            
+            data.classes.main = document.getElementById('inClass').value;
+            data.description = document.getElementById('inDesc').value;
+
             renderCard(currentCardIndex);
         }
 
         function renderCard(index) {
             const cardEl = document.querySelector(`.card[data-index="${index}"]`);
             const data = cardsData[index];
-            cardEl.querySelector('.card-title').innerText = data.title || "";
-            cardEl.querySelector('.v-time').innerText = data.time || "-";
-            cardEl.querySelector('.v-range').innerText = data.range || "-";
-            cardEl.querySelector('.v-comp').innerText = data.comp || "-";
-            cardEl.querySelector('.v-dur').innerText = data.dur || "-";
-            cardEl.querySelector('.description').innerText = data.desc || "";
+            
+            // Podstawowe dane
+            cardEl.querySelector('.card-title').innerText = data.name || "";
+            
+            // Budowanie linii Meta (Level, Szkoła, Rytuał, Klasy)
+            let metaString = "";
+            if(data.level == 0) metaString += "Cantrip";
+            else metaString += `Level ${data.level}`;
+            
+            if(data.school) metaString += ` ${data.school}`;
+            if(data.meta.isRitual) metaString += " (R)";
+            if(data.classes.main) metaString += ` - ${data.classes.main}`;
+            
+            cardEl.querySelector('.card-meta').innerText = metaString;
+
+            // Statystyki
+            cardEl.querySelector('.v-time').innerText = data.casting.time || "-";
+            cardEl.querySelector('.v-range').innerText = data.casting.range || "-";
+            
+            // Duration + Koncentracja
+            let durString = data.casting.duration || "-";
+            if(data.casting.isConcentration) durString += " (C)";
+            cardEl.querySelector('.v-dur').innerText = durString;
+
+            // Komponenty (Tylko litery V, S, M)
+            let comps = [];
+            if(data.components.verbal) comps.push("V");
+            if(data.components.somatic) comps.push("S");
+            if(data.components.material) comps.push("M");
+            
+            cardEl.querySelector('.v-comp').innerText = comps.join(", ") || "-";
+
+            // Opis + Materiał Pogrubiony
+            let descHtml = "";
+            
+            // Warunek: M musi być zaznaczone i musi być opis materiału
+            if(data.components.material && data.components.materialDescription) {
+                descHtml += `<b>Material:</b> ${data.components.materialDescription}\n\n`;
+            }
+            
+            descHtml += data.description || "";
+            
+            // Użycie innerHTML dla obsługi <b>
+            cardEl.querySelector('.description').innerHTML = descHtml;
         }
 
         function copyToAll() {
-            const currentData = cardsData[currentCardIndex];
+            // Klonowanie głębokie (deep copy) przez JSON
+            const currentData = JSON.stringify(cardsData[currentCardIndex]);
             for(let i=0; i<9; i++) {
-                cardsData[i] = { ...currentData };
+                cardsData[i] = JSON.parse(currentData);
                 renderCard(i);
             }
             alert("Treść skopiowana do wszystkich kart!");
         }
 
-        // --- JSON ---
+        // --- JSON IMPORT/EXPORT ---
         function downloadJSON() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cardsData, null, 2));
             const downloadAnchorNode = document.createElement('a');
             downloadAnchorNode.setAttribute("href", dataStr);
-            downloadAnchorNode.setAttribute("download", "rpg_karty.json");
+            downloadAnchorNode.setAttribute("download", "rpg_karty_v3.json");
             document.body.appendChild(downloadAnchorNode); 
             downloadAnchorNode.click();
             downloadAnchorNode.remove();
@@ -411,23 +545,24 @@
                     if (Array.isArray(loadedData)) {
                         for (let i = 0; i < 9; i++) {
                             if (loadedData[i]) {
-                                cardsData[i] = {
-                                    title: loadedData[i].title || "",
-                                    time: loadedData[i].time || "",
-                                    range: loadedData[i].range || "",
-                                    comp: loadedData[i].comp || "",
-                                    dur: loadedData[i].dur || "",
-                                    desc: loadedData[i].desc || ""
-                                };
+                                // Scalanie danych z domyślnym obiektem (aby nie zgubić kluczy)
+                                cardsData[i] = { ...createEmptySpell(), ...loadedData[i] };
+                                
+                                // Scalanie zagnieżdżonych obiektów
+                                if(loadedData[i].meta) cardsData[i].meta = { ...createEmptySpell().meta, ...loadedData[i].meta };
+                                if(loadedData[i].casting) cardsData[i].casting = { ...createEmptySpell().casting, ...loadedData[i].casting };
+                                if(loadedData[i].components) cardsData[i].components = { ...createEmptySpell().components, ...loadedData[i].components };
+                                if(loadedData[i].classes) cardsData[i].classes = { ...createEmptySpell().classes, ...loadedData[i].classes };
                             }
                         }
                         cardsData.forEach((_, index) => renderCard(index));
                         selectCard(currentCardIndex);
-                        alert("Pomyślnie wczytano dane z pliku JSON!");
+                        alert("Pomyślnie wczytano dane!");
                     } else {
                         alert("Błąd: Plik JSON ma niepoprawny format.");
                     }
                 } catch (err) {
+                    console.error(err);
                     alert("Błąd parsowania: " + err.message);
                 }
                 e.target.value = '';
@@ -477,7 +612,7 @@
             });
         }
 
-        // --- STYLE GLOBALNE ---
+        // --- STYLE SUWAKÓW ---
         function updateVars() {
             const root = document.documentElement.style;
             const top = document.getElementById('mTop').value;
