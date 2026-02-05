@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Kreator Kart RPG - Wersja Uporządkowana</title>
+    <title>Kreator Kart RPG - Scroll Sidebar</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap');
 
@@ -24,7 +24,7 @@
             font-family: 'Lato', sans-serif;
             display: flex;
             height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* Ukrywa scroll strony, scrollujemy tylko sekcje */
         }
 
         /* --- PANEL LEWY (SIDEBAR) --- */
@@ -32,15 +32,30 @@
             width: 380px;
             background: #f8f9fa;
             padding: 15px;
-            overflow-y: auto;
-            border-right: 5px solid #2c3e50;
+            
+            /* KLUCZOWE ZMIANY DLA SCROLLOWANIA: */
+            height: 100vh;          /* Panel ma wysokość całego okna */
+            overflow-y: auto;       /* Włącz przewijanie pionowe */
             display: flex;
             flex-direction: column;
             gap: 15px;
-            flex-shrink: 0;
+            flex-shrink: 0;         /* Sam panel się nie zwęża */
+            
+            border-right: 5px solid #2c3e50;
             box-shadow: 5px 0 15px rgba(0,0,0,0.3);
             z-index: 20;
         }
+
+        /* TO NAPRAWIA SCROLLOWANIE WE FLEXBOXIE: */
+        .sidebar > * {
+            flex-shrink: 0; /* Zabrania elementom ściskania się, wymuszając scroll */
+        }
+
+        /* Stylizacja paska przewijania (Scrollbar) */
+        .sidebar::-webkit-scrollbar { width: 10px; }
+        .sidebar::-webkit-scrollbar-track { background: #e9ecef; }
+        .sidebar::-webkit-scrollbar-thumb { background: #bdc3c7; border-radius: 5px; border: 2px solid #e9ecef; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: #95a5a6; }
 
         h2 { margin: 0; padding-bottom: 10px; border-bottom: 2px solid #ccc; font-size: 1.2rem; text-align: center; color: #2c3e50; }
         
@@ -48,6 +63,7 @@
         .edit-status {
             background: #34495e; color: white; padding: 10px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: sticky; top: 0; z-index: 10; /* Opcjonalne: przykleja status u góry podczas scrollowania */
         }
 
         /* Inputy tekstowe */
@@ -74,7 +90,7 @@
             font-weight: bold;
             font-size: 0.85rem;
             color: #333;
-            list-style: none; /* Ukrywa domyślny trójkąt */
+            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -96,8 +112,16 @@
         }
         .btn-copy { background-color: #3498db; color: white; margin-bottom: 10px; }
         .btn-copy:hover { background-color: #2980b9; }
+
+        .btn-json { background-color: #8e44ad; color: white; margin-bottom: 5px; }
+        .btn-json:hover { background-color: #732d91; }
         
-        .btn-print { background-color: #27ae60; color: white; padding: 15px; font-size: 1.1rem; margin-top: auto; }
+        /* Przycisk drukuj na dole */
+        .btn-print { 
+            background-color: #27ae60; color: white; padding: 15px; font-size: 1.1rem; 
+            margin-top: auto; /* Pycha przycisk na sam dół kontenera */
+            margin-bottom: 10px;
+        }
         .btn-print:hover { background-color: #219150; }
 
         .file-upload-wrapper {
@@ -108,7 +132,7 @@
         .main-content {
             flex-grow: 1;
             background-color: #555;
-            overflow: auto;
+            overflow: auto; /* To scrolluje podgląd kart */
             padding: 40px;
             display: flex;
             justify-content: center;
@@ -121,6 +145,7 @@
             display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2mm;
             box-shadow: 0 0 30px rgba(0,0,0,0.5);
             transform: scale(0.85); transform-origin: top center;
+            flex-shrink: 0; /* Ważne, żeby strona się nie zgniatała */
         }
 
         /* --- KARTA --- */
@@ -130,7 +155,6 @@
             cursor: pointer; transition: all 0.2s;
         }
 
-        /* Podświetlenie aktywnej karty */
         .card.selected-card {
             box-shadow: 0 0 0 4px #3498db; z-index: 10; border-color: #3498db;
         }
@@ -169,15 +193,14 @@
             pointer-events: none;
         }
 
-        /* Checkbox rewersu */
         .toggle-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
         .toggle-wrapper input { width: 18px; height: 18px; }
 
         @media print {
             .sidebar { display: none; }
-            .main-content { padding: 0; background: white; display: block; overflow: visible; }
+            .main-content { padding: 0; background: white; display: block; overflow: visible; height: auto; }
             .page { transform: none; box-shadow: none; margin: 0; width: 100%; height: 100%; }
-            body { height: auto; display: block; }
+            body { height: auto; display: block; overflow: visible; }
             .card.selected-card { box-shadow: none; border: 1px solid #ccc; }
             @page { size: A4; margin: 0; }
             * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -211,6 +234,19 @@
             
             <button class="btn-action btn-copy" onclick="copyToAll()">Kopiuj tę treść do wszystkich kart</button>
         </div>
+
+        <details>
+            <summary>Zarządzanie Danymi (JSON)</summary>
+            <div class="details-content">
+                <button class="btn-action btn-json" onclick="downloadJSON()">Pobierz dane (Zapisz)</button>
+                
+                <div class="file-upload-wrapper" style="border-color: #8e44ad; background: #f4ecf7;">
+                    <label style="margin-top:0;">Wczytaj plik JSON:</label>
+                    <input type="file" id="jsonInput" accept=".json">
+                </div>
+                <div style="font-size: 0.7rem; color: #666; text-align: center;">Wczytanie nadpisze obecne teksty!</div>
+            </div>
+        </details>
 
         <details>
             <summary>Grafika & Rewers</summary>
@@ -313,12 +349,12 @@
             document.getElementById('statusHeader').innerHTML = `EDYTUJESZ KARTĘ #${index + 1}<div style="font-weight: normal; font-size: 0.7em; margin-top:3px;">(Kliknij inną kartę na podglądzie, aby zmienić)</div>`;
 
             const data = cardsData[index];
-            document.getElementById('inName').value = data.title;
-            document.getElementById('inTime').value = data.time;
-            document.getElementById('inRange').value = data.range;
-            document.getElementById('inComp').value = data.comp;
-            document.getElementById('inDur').value = data.dur;
-            document.getElementById('inDesc').value = data.desc;
+            document.getElementById('inName').value = data.title || "";
+            document.getElementById('inTime').value = data.time || "";
+            document.getElementById('inRange').value = data.range || "";
+            document.getElementById('inComp').value = data.comp || "";
+            document.getElementById('inDur').value = data.dur || "";
+            document.getElementById('inDesc').value = data.desc || "";
         }
 
         function updateCurrentCard() {
@@ -337,12 +373,12 @@
         function renderCard(index) {
             const cardEl = document.querySelector(`.card[data-index="${index}"]`);
             const data = cardsData[index];
-            cardEl.querySelector('.card-title').innerText = data.title;
-            cardEl.querySelector('.v-time').innerText = data.time;
-            cardEl.querySelector('.v-range').innerText = data.range;
-            cardEl.querySelector('.v-comp').innerText = data.comp;
-            cardEl.querySelector('.v-dur').innerText = data.dur;
-            cardEl.querySelector('.description').innerText = data.desc;
+            cardEl.querySelector('.card-title').innerText = data.title || "";
+            cardEl.querySelector('.v-time').innerText = data.time || "-";
+            cardEl.querySelector('.v-range').innerText = data.range || "-";
+            cardEl.querySelector('.v-comp').innerText = data.comp || "-";
+            cardEl.querySelector('.v-dur').innerText = data.dur || "-";
+            cardEl.querySelector('.description').innerText = data.desc || "";
         }
 
         function copyToAll() {
@@ -353,6 +389,51 @@
             }
             alert("Treść skopiowana do wszystkich kart!");
         }
+
+        // --- JSON ---
+        function downloadJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cardsData, null, 2));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute("href", dataStr);
+            downloadAnchorNode.setAttribute("download", "rpg_karty.json");
+            document.body.appendChild(downloadAnchorNode); 
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+        }
+
+        document.getElementById('jsonInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                try {
+                    const loadedData = JSON.parse(evt.target.result);
+                    if (Array.isArray(loadedData)) {
+                        for (let i = 0; i < 9; i++) {
+                            if (loadedData[i]) {
+                                cardsData[i] = {
+                                    title: loadedData[i].title || "",
+                                    time: loadedData[i].time || "",
+                                    range: loadedData[i].range || "",
+                                    comp: loadedData[i].comp || "",
+                                    dur: loadedData[i].dur || "",
+                                    desc: loadedData[i].desc || ""
+                                };
+                            }
+                        }
+                        cardsData.forEach((_, index) => renderCard(index));
+                        selectCard(currentCardIndex);
+                        alert("Pomyślnie wczytano dane z pliku JSON!");
+                    } else {
+                        alert("Błąd: Plik JSON ma niepoprawny format.");
+                    }
+                } catch (err) {
+                    alert("Błąd parsowania: " + err.message);
+                }
+                e.target.value = '';
+            };
+            reader.readAsText(file);
+        });
 
         // --- OBRAZKI I REWERS ---
         document.getElementById('imgFrontInput').addEventListener('change', function(e) { loadFile(e.target.files[0], true); });
@@ -380,7 +461,7 @@
                 statusHeader.style.background = "#e67e22";
             } else {
                 pageContainer.classList.remove('hide-text');
-                selectCard(currentCardIndex); // Przywróć tekst nagłówka
+                selectCard(currentCardIndex); 
                 statusHeader.style.background = "#34495e";
             }
             refreshImages();
@@ -399,17 +480,14 @@
         // --- STYLE GLOBALNE ---
         function updateVars() {
             const root = document.documentElement.style;
-            
             const top = document.getElementById('mTop').value;
             const side = document.getElementById('mSide').value;
             const bot = document.getElementById('mBot').value;
 
-            // Update CSS
             root.setProperty('--pad-top', top + 'px');
             root.setProperty('--pad-side', side + 'px');
             root.setProperty('--pad-bottom', bot + 'px');
             
-            // Update liczników
             document.getElementById('valTop').innerText = top + 'px';
             document.getElementById('valSide').innerText = side + 'px';
             document.getElementById('valBot').innerText = bot + 'px';
