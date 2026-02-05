@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Fireball",
+    "time": "1 Act",
+    "range": "150 feet",
+    "comp": "V, S, M",
+    "dur": "Instant",
+    "desc": "XXXXXXXXXXXXXXXXXXX"
+  },
+  {
+    "title": "Magic Missle",
+    "time": "1 Act",
+    "range": "120 fett",
+    "comp": "V, S",
+    "dur": "Ins",
+    "desc": "XXXXXXXXX...."
+  }
+]
