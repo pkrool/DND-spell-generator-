@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kreator Kart RPG - Wersja Uporządkowana</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Lato:wght@400;700&display=swap');
+
+        :root {
+            /* Domyślne wartości zmiennych */
+            --pad-top: 40px;
+            --pad-side: 35px;
+            --pad-bottom: 30px;
+            
+            --desc-size: 10px;
+            --desc-line-height: 1.25;
+            --desc-spacing: 0px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #333;
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- PANEL LEWY (SIDEBAR) --- */
+        .sidebar {
+            width: 380px;
+            background: #f8f9fa;
+            padding: 15px;
+            overflow-y: auto;
+            border-right: 5px solid #2c3e50;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-shrink: 0;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+            z-index: 20;
+        }
+
+        h2 { margin: 0; padding-bottom: 10px; border-bottom: 2px solid #ccc; font-size: 1.2rem; text-align: center; color: #2c3e50; }
+        
+        /* Status edycji */
+        .edit-status {
+            background: #34495e; color: white; padding: 10px; text-align: center; border-radius: 4px; font-weight: bold; font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Inputy tekstowe */
+        input[type="text"], textarea {
+            width: 100%; padding: 8px; border: 1px solid #bdc3c7; border-radius: 4px; font-size: 0.9rem; margin-bottom: 5px;
+            font-family: inherit;
+        }
+        
+        label { display: block; font-weight: bold; font-size: 0.75rem; margin-top: 5px; margin-bottom: 2px; color: #555; }
+        
+        /* Sekcje rozwijane (Details/Summary) */
+        details {
+            background: #ffffff;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        summary {
+            background: #e9ecef;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+            color: #333;
+            list-style: none; /* Ukrywa domyślny trójkąt */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        summary::after { content: '▼'; font-size: 0.7rem; color: #777; }
+        details[open] summary::after { content: '▲'; }
+
+        .details-content { padding: 10px; }
+
+        /* Suwaki */
+        input[type="range"] { width: 100%; cursor: pointer; margin: 5px 0 15px 0; }
+        .slider-group label { display: flex; justify-content: space-between; }
+        .slider-group span { font-weight: normal; color: #777; }
+
+        /* Przyciski */
+        .btn-action {
+            width: 100%; padding: 10px; margin-top: 5px; cursor: pointer; font-weight: bold; border-radius: 4px; border: none; transition: 0.2s;
+        }
+        .btn-copy { background-color: #3498db; color: white; margin-bottom: 10px; }
+        .btn-copy:hover { background-color: #2980b9; }
+        
+        .btn-print { background-color: #27ae60; color: white; padding: 15px; font-size: 1.1rem; margin-top: auto; }
+        .btn-print:hover { background-color: #219150; }
+
+        .file-upload-wrapper {
+            background: #f1f1f1; padding: 8px; border: 1px dashed #999; text-align: center; border-radius: 4px; margin-bottom: 10px;
+        }
+
+        /* --- PODGLĄD (MAIN CONTENT) --- */
+        .main-content {
+            flex-grow: 1;
+            background-color: #555;
+            overflow: auto;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- STRONA A4 --- */
+        .page {
+            width: 210mm; height: 297mm;
+            background: white; padding: 10mm;
+            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2mm;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            transform: scale(0.85); transform-origin: top center;
+        }
+
+        /* --- KARTA --- */
+        .card {
+            position: relative; width: 100%; height: 100%;
+            border: 1px solid #ccc; overflow: hidden; background-color: #eee;
+            cursor: pointer; transition: all 0.2s;
+        }
+
+        /* Podświetlenie aktywnej karty */
+        .card.selected-card {
+            box-shadow: 0 0 0 4px #3498db; z-index: 10; border-color: #3498db;
+        }
+
+        .card-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;
+        }
+
+        .card-content {
+            position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
+            padding-top: var(--pad-top); padding-left: var(--pad-side); padding-right: var(--pad-side); padding-bottom: var(--pad-bottom);
+            transition: opacity 0.3s;
+        }
+
+        .hide-text .card-content { opacity: 0; pointer-events: none; }
+
+        .card-title {
+            font-family: 'Cinzel', serif; text-align: center; font-weight: bold; font-size: 12px; margin-bottom: 5px; text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(255,255,255,0.8); min-height: 15px;
+        }
+
+        .stats-row {
+            display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;
+            border-bottom: 1px solid rgba(0,0,0,0.2); padding-bottom: 2px;
+            background: rgba(255,255,255,0.3); pointer-events: none;
+        }
+        
+        .stat-group { display: flex; flex-direction: column; }
+        .stat-group.right { text-align: right; }
+        .stat-label { font-size: 7px; font-weight: bold; color: #222; text-transform: uppercase; }
+        .stat-val { font-weight: bold; color: #000; }
+
+        .description {
+            margin-top: 5px; text-align: justify; white-space: pre-wrap; flex-grow: 1; overflow: hidden;
+            font-size: var(--desc-size); line-height: var(--desc-line-height); letter-spacing: var(--desc-spacing);
+            pointer-events: none;
+        }
+
+        /* Checkbox rewersu */
+        .toggle-wrapper { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
+        .toggle-wrapper input { width: 18px; height: 18px; }
+
+        @media print {
+            .sidebar { display: none; }
+            .main-content { padding: 0; background: white; display: block; overflow: visible; }
+            .page { transform: none; box-shadow: none; margin: 0; width: 100%; height: 100%; }
+            body { height: auto; display: block; }
+            .card.selected-card { box-shadow: none; border: 1px solid #ccc; }
+            @page { size: A4; margin: 0; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>Edytor Kart RPG</h2>
+        
+        <div class="edit-status" id="statusHeader">
+            EDYTUJESZ KARTĘ #1
+            <div style="font-weight: normal; font-size: 0.7em; margin-top:3px;">(Kliknij inną kartę na podglądzie, aby zmienić)</div>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <input type="text" id="inName" placeholder="Nazwa Zaklęcia" oninput="updateCurrentCard()">
+            
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="inTime" placeholder="Time" oninput="updateCurrentCard()">
+                <input type="text" id="inRange" placeholder="Range" oninput="updateCurrentCard()">
+            </div>
+            
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="inComp" placeholder="Components" oninput="updateCurrentCard()">
+                <input type="text" id="inDur" placeholder="Duration" oninput="updateCurrentCard()">
+            </div>
+            
+            <textarea id="inDesc" rows="6" placeholder="Opis..." oninput="updateCurrentCard()"></textarea>
+            
+            <button class="btn-action btn-copy" onclick="copyToAll()">Kopiuj tę treść do wszystkich kart</button>
+        </div>
+
+        <details>
+            <summary>Grafika & Rewers</summary>
+            <div class="details-content">
+                <div class="file-upload-wrapper">
+                    <label style="margin-top:0;">1. Przód Karty:</label>
+                    <input type="file" id="imgFrontInput" accept="image/*">
+                </div>
+                
+                <div class="file-upload-wrapper" style="background: #fff3cd; border-color: #ffeeba;">
+                    <label style="margin-top:0;">2. Tył Karty (Rewers):</label>
+                    <input type="file" id="imgBackInput" accept="image/*">
+                </div>
+
+                <label class="toggle-wrapper">
+                    <input type="checkbox" id="reverseToggle" onchange="toggleReverseMode()">
+                    <span>WŁĄCZ TRYB DRUKU REWERSU</span>
+                </label>
+            </div>
+        </details>
+
+        <details open>
+            <summary>Wygląd Globalny (Marginesy/Tekst)</summary>
+            <div class="details-content">
+                <div class="slider-group">
+                    <label>Margines Góra: <span id="valTop">40px</span></label>
+                    <input type="range" id="mTop" min="0" max="150" value="40" oninput="updateVars()">
+                    
+                    <label>Margines Boki: <span id="valSide">35px</span></label>
+                    <input type="range" id="mSide" min="0" max="80" value="35" oninput="updateVars()">
+                    
+                    <label>Margines Dół: <span id="valBot">30px</span></label>
+                    <input type="range" id="mBot" min="0" max="100" value="30" oninput="updateVars()">
+                    
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid #eee;">
+                    
+                    <label>Ściśnij Linie (Interlinia):</label>
+                    <input type="range" id="dLineHeight" min="0.8" max="1.6" step="0.05" value="1.25" oninput="updateVars()">
+                    
+                    <label>Wielkość Czcionki:</label>
+                    <input type="range" id="dSize" min="6" max="14" step="0.5" value="10" oninput="updateVars()">
+
+                    <label>Ściśnij Litery:</label>
+                    <input type="range" id="dSpacing" min="-1.5" max="1" step="0.1" value="0" oninput="updateVars()">
+                </div>
+            </div>
+        </details>
+
+        <button class="btn-print" onclick="window.print()">DRUKUJ</button>
+    </div>
+
+    <div class="main-content">
+        <div class="page" id="page"></div>
+    </div>
+
+    <script>
+        // --- ZMIENNE STANU ---
+        let currentCardIndex = 0;
+        let cardsData = Array(9).fill().map(() => ({
+            title: "", time: "", range: "", comp: "", dur: "", desc: ""
+        }));
+        let frontImageSrc = "";
+        let backImageSrc = "";
+
+        // --- INICJALIZACJA ---
+        const page = document.getElementById('page');
+        const cardTemplate = `
+            <div class="card-bg-wrapper"><img src="" class="card-bg"></div>
+            <div class="card-content">
+                <div class="card-title">NAZWA</div>
+                <div class="stats-row">
+                    <div class="stat-group"><span class="stat-label">Time</span><span class="stat-val v-time">-</span></div>
+                    <div class="stat-group right"><span class="stat-label">Range</span><span class="stat-val v-range">-</span></div>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-group"><span class="stat-label">Components</span><span class="stat-val v-comp">-</span></div>
+                    <div class="stat-group right"><span class="stat-label">Duration</span><span class="stat-val v-dur">-</span></div>
+                </div>
+                <div class="description">Opis...</div>
+            </div>
+        `;
+
+        for(let i=0; i<9; i++) {
+            let div = document.createElement('div');
+            div.className = 'card';
+            div.dataset.index = i;
+            div.onclick = function() { selectCard(i); };
+            div.innerHTML = cardTemplate;
+            page.appendChild(div);
+        }
+
+        selectCard(0);
+
+        // --- LOGIKA KART ---
+        function selectCard(index) {
+            currentCardIndex = index;
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected-card'));
+            document.querySelector(`.card[data-index="${index}"]`).classList.add('selected-card');
+            
+            document.getElementById('statusHeader').innerHTML = `EDYTUJESZ KARTĘ #${index + 1}<div style="font-weight: normal; font-size: 0.7em; margin-top:3px;">(Kliknij inną kartę na podglądzie, aby zmienić)</div>`;
+
+            const data = cardsData[index];
+            document.getElementById('inName').value = data.title;
+            document.getElementById('inTime').value = data.time;
+            document.getElementById('inRange').value = data.range;
+            document.getElementById('inComp').value = data.comp;
+            document.getElementById('inDur').value = data.dur;
+            document.getElementById('inDesc').value = data.desc;
+        }
+
+        function updateCurrentCard() {
+            const newData = {
+                title: document.getElementById('inName').value,
+                time: document.getElementById('inTime').value,
+                range: document.getElementById('inRange').value,
+                comp: document.getElementById('inComp').value,
+                dur: document.getElementById('inDur').value,
+                desc: document.getElementById('inDesc').value
+            };
+            cardsData[currentCardIndex] = newData;
+            renderCard(currentCardIndex);
+        }
+
+        function renderCard(index) {
+            const cardEl = document.querySelector(`.card[data-index="${index}"]`);
+            const data = cardsData[index];
+            cardEl.querySelector('.card-title').innerText = data.title;
+            cardEl.querySelector('.v-time').innerText = data.time;
+            cardEl.querySelector('.v-range').innerText = data.range;
+            cardEl.querySelector('.v-comp').innerText = data.comp;
+            cardEl.querySelector('.v-dur').innerText = data.dur;
+            cardEl.querySelector('.description').innerText = data.desc;
+        }
+
+        function copyToAll() {
+            const currentData = cardsData[currentCardIndex];
+            for(let i=0; i<9; i++) {
+                cardsData[i] = { ...currentData };
+                renderCard(i);
+            }
+            alert("Treść skopiowana do wszystkich kart!");
+        }
+
+        // --- OBRAZKI I REWERS ---
+        document.getElementById('imgFrontInput').addEventListener('change', function(e) { loadFile(e.target.files[0], true); });
+        document.getElementById('imgBackInput').addEventListener('change', function(e) { loadFile(e.target.files[0], false); });
+
+        function loadFile(file, isFront) {
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                if(isFront) frontImageSrc = evt.target.result;
+                else backImageSrc = evt.target.result;
+                refreshImages();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function toggleReverseMode() {
+            const isReverse = document.getElementById('reverseToggle').checked;
+            const pageContainer = document.getElementById('page');
+            const statusHeader = document.getElementById('statusHeader');
+            
+            if (isReverse) {
+                pageContainer.classList.add('hide-text');
+                statusHeader.innerText = "TRYB DRUKU REWERSU (TYŁU)";
+                statusHeader.style.background = "#e67e22";
+            } else {
+                pageContainer.classList.remove('hide-text');
+                selectCard(currentCardIndex); // Przywróć tekst nagłówka
+                statusHeader.style.background = "#34495e";
+            }
+            refreshImages();
+        }
+
+        function refreshImages() {
+            const isReverse = document.getElementById('reverseToggle').checked;
+            const targetSrc = isReverse ? backImageSrc : frontImageSrc;
+            document.querySelectorAll('.card-bg').forEach(img => {
+                if (isReverse && !backImageSrc) img.src = "";
+                else if (!isReverse && !frontImageSrc) img.src = "";
+                else img.src = targetSrc;
+            });
+        }
+
+        // --- STYLE GLOBALNE ---
+        function updateVars() {
+            const root = document.documentElement.style;
+            
+            const top = document.getElementById('mTop').value;
+            const side = document.getElementById('mSide').value;
+            const bot = document.getElementById('mBot').value;
+
+            // Update CSS
+            root.setProperty('--pad-top', top + 'px');
+            root.setProperty('--pad-side', side + 'px');
+            root.setProperty('--pad-bottom', bot + 'px');
+            
+            // Update liczników
+            document.getElementById('valTop').innerText = top + 'px';
+            document.getElementById('valSide').innerText = side + 'px';
+            document.getElementById('valBot').innerText = bot + 'px';
+
+            root.setProperty('--desc-line-height', document.getElementById('dLineHeight').value);
+            root.setProperty('--desc-size', document.getElementById('dSize').value + 'px');
+            root.setProperty('--desc-spacing', document.getElementById('dSpacing').value + 'px');
+        }
+    </script>
+</body>
+</html>
