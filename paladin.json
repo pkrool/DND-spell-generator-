@@ -1,0 +1,834 @@
+[
+      {
+        "name": "Bless",
+        "level": 1,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "30 feet",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a sprinkling of holy water"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "You bless up to three creatures of your choice within range. Whenever a target makes an attack roll or a saving throw before the spell ends, the target can roll a d4 and add the number rolled to the attack roll or saving throw.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st. "
+    },
+    {
+        "name": "Ceremony",
+        "level": 1,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": true,
+            "sourcebook": "XGE"
+        },
+        "casting": {
+            "time": "1 hour",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "25 gp worth of powdered silver, which the spell consumes"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "You perform a special religious ceremony that is infused with magic. When you cast the spell, choose one of the following rites, the target of which must be within 10 feet of you throughout the casting.<br> <b>Atonement</b>: You touch one willing creature whose alignment has changed, and you make a DC 20 Wisdom (Insight) check. On a successful check, you restore the target to its original alignment.<br> <b>Bless Water</b>: You touch one vial of water and cause it to become holy water.<br> <b>Coming of Age</b>: You touch one humanoid who is a young adult. For the next 24 hours, whenever the target makes an ability check, it can roll a d4 and add the number rolled to the ability check. A creature can benefit from this rite only once.<br> <b>Dedication</b>: You touch one humanoid who wishes to be dedicated to your god's service. For the next 24 hours, whenever the target makes a saving throw, it can roll a d4 and add the number rolled to the save. A creature can benefit from this rite only once.<br> <b>Funeral Rite</b>: You touch one corpse, and for the next 7 days, the target can't become undead by any means short of a <i>wish</i> spell.<br> <b>Wedding</b>: You touch adult humanoids willing to be bonded together in marriage. For the next 7 days, each target gains a +2 bonus to AC while they are within 30 feet of each other. A creature can benefit from this rite again only if widowed."
+    },
+    {
+        "name": "Command",
+        "level": 1,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "60 feet",
+            "isConcentration": false,
+            "duration": "1 round"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Crown","Conquest"]
+        },
+        "description": "You speak a one-word command to a creature you can see within range. The target must succeed on a Wisdom saving throw or follow the command on its next turn. The spell has no effect if the target is undead, if it doesn't understand your language, or if your command is directly harmful to it.<br> Some typical commands and their effects follow.<br> You might issue a command other than one described here. If you do so, the DM determines how the target behaves. If the target can't follow your command, the spell ends.<br> <b>Approach</b>: The target moves toward you by the shortest and most direct route, ending its turn if it moves within 5 feet of you.<br> <b>Drop</b>: The target drops whatever it is holding and then ends its turn.<br> <b>Flee</b>: The target spends its turn moving away from you by the fastest available means.<br> <b>Grovel</b>: The target falls prone and then ends its turn.<br> <b>Halt</b>: The target doesn't move and takes no actions. A flying creature stays aloft, provided that it is able to do so. If it must move to stay aloft, it flies the minimum distance needed to remain in the air.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 2nd level or higher, you can affect one additional creature for each slot level above 1st. The creatures must be within 30 feet of each other when you target them. "
+    },
+    {
+        "name": "Compelled Duel",
+        "level": 1,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "30 feet",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Crown"]
+        },
+        "description": "You attempt to compel a creature into a duel. One creature that you can see within range must make a Wisdom saving throw. On a failed save, the creature is drawn to you, compelled by your divine demand. For the duration, it has disadvantage on attack rolls against creatures other than you, and must make a Wisdom saving throw each time it attempts to move to a space that is more than 30 feet away from you, if it succeeds on this saving throw, this spell doesn't restrict the target's movement for that turn.<br> The spell ends if you attack any other creature, if you cast a spell that targets a hostile creature other than the target, if a creature friendly to you damages the target or casts a harmful spell on it, or if you end your turn more than 30 feet away from the target. "
+    },
+    {
+        "name": "Cure Wounds",
+        "level": 1,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "A creature you touch regains a number of hit points equal to 1d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 2nd level or higher, the healing increases by 1d8 for each slot level above 1st. "
+    },
+    {
+        "name": "Detect Evil and Good",
+        "level": 1,
+        "school": "Divination",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "For the duration, you know if there is an aberration, celestial, elemental, fey, fiend, or undead within 30 feet of you, as well as where the creature is located. Similarly, you know if there is a place of object within 30 feet of you that has been magically consecrated or desecrated.<br> The spell can penetrate most barriers, but it is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt."
+    },
+    {
+        "name": "Detect Magic",
+        "level": 1,
+        "school": "Divination",
+        "meta": {
+            "isRitual": true,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Watchers"]
+        },
+        "description": "For the duration, you sense the presence of magic within 30 feet of you. If you sense magic in this way, you can use your action to see a faint aura around any visible creature or object in the area that bears magic, and you learn its school of magic, if any.<br> The spell can penetrate most barriers, but is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt. "
+    },
+    {
+        "name": "Detect Poison and Disease",
+        "level": 1,
+        "school": "Divination",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a yew leaf"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "For the duration, you can sense the presence and location of poisons, poisonous creatures, and diseases within 30 feet of you. You also identify the kind of poison, poisonous creature, or disease in each case.<br> The spell can penetrate most barriers, but is blocked by 1 foot of stone, 1 inch of common metal, a thin sheet of lead, or 3 feet of wood or dirt. "
+    },
+    {
+        "name": "Divine Favor",
+        "level": 1,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "Your prayer empowers you with divine radiance. Until the spell ends, your weapon attacks deal and extra 1d4 radiant damage on a hit."
+    },
+    {
+        "name": "Ensnaring Strike",
+        "level": 1,
+        "school": "Conjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["Ancients"]
+        },
+        "description": "The next time you hit a creature with a weapon attack before this spell ends, a writhing mass of thorny vines appears at the point of impact, and the target must succeed on a Strength saving throw or be restrained by the magical vines until the spell ends. A Large or larger creature has advantage on this saving throw. If the target succeeds on the save, the vines shrivel away.<br> While restrained by this spell, the target takes 1d6 piercing damage at the start of each of its turns. A creature restrained by the vines or one that can touch the creature can use its action to make a Strength check against your spell save DC. On a success, the target is freed.<br> <b>At Higher Levels</b>: If you cast this spell using a spell slot of 2nd level or higher, the damage increases by 1d6 for each slot level above 1st. "
+    },
+    {
+        "name": "Heroism",
+        "level": 1,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Glory"]
+        },
+        "description": "A willing creature you touch is imbued with bravery. Until the spell ends, the creature is immune to being frightened and gains temporary hit points equal to your spellcasting ability modifier at the start of each of its turns. When the spell ends, the target loses any remaining temporary hit points from this spell.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 2nd level or higher, you can target one additional creature for each slot level above 1st. "
+    },
+    {
+        "name": "Protection from Evil and Good",
+        "level": 1,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "holy water or powdered silver and iron, which the spell consumes"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Devotion"]
+        },
+        "description": "Until the spell ends, one willing creature you touch is protected against certain types of creatures - aberrations, celestials, elementals, fey, fiends, and undead.<br> The protection grants several benefits. Creatures of those types have disadvantage on attack rolls against the target. The target also can't be charmed, frightened, or possessed by them. If the target is already charmed, frightened, or possessed by such a creature, the target has advantage on any new saving throw against the relevant effect. "
+    },
+    {
+        "name": "Purify Food and Drink",
+        "level": 1,
+        "school": "Transmutation",
+        "meta": {
+            "isRitual": true,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "10 feet",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "All nonmagical food and drink within a 5-foot-radius sphere centered on a point of your choice within range is purified and rendered free of poison and disease."
+    },
+    {
+        "name": "Searing Smite",
+        "level": 1,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "The next time you hit a creature with a melee weapon attack during the spell's duration, your weapon flares with white-hot intensity, and the attack deals an extra 1d6 fire damage to the target and causes the target to ignite in flames. At the start of each of its turns until the spell ends, the target must make a Constitution saving throw. On a failed save, it takes 1d6 fire damage. On a successful save, the spell ends. If the target or a creature within 5 feet of it uses an action to put out the flames, or if some other effect douses the flames (such as the target being submerged in water), the spell ends.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 2nd level or higher, the initial extra damage dealt by the attack increases by 1d6 for each slot above the 1st. "
+    },
+    {
+        "name": "Shield of Faith",
+        "level": 1,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "60 feet",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a small parchment with a bit of holy text written on it"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "A shimmering field appears and surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration."
+    },
+    {
+        "name": "Speak with Animals",
+        "level": 1,
+        "school": "Divination",
+        "meta": {
+            "isRitual": true,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Self",
+            "isConcentration": false,
+            "duration": "10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["Ancients"]
+        },
+        "description": "You gain the ability to comprehend and verbally communicate with beasts for the duration. The knowledge and awareness of many beasts is limited by their intelligence, but at minimum, beasts can give you information about nearby locations and monsters, including whatever they can perceive or have perceived within the past day. You might be able to persuade a beast to perform a small favor for you, at the DM's discretion."
+    },
+    {
+        "name": "Thunderous Smite",
+        "level": 1,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "The first time you hit with a melee weapon attack during this spell's duration, your weapon rings with thunder that is audible within 300 feet of you, and the attack deals an extra 2d6 thunder damage to the target. Additionally, if the target is a creature, it must succeed on a Strength saving throw or be pushed 10 feet away from you and knocked prone."
+    },
+    {
+        "name": "Wrathful Smite",
+        "level": 1,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "The next time you hit with a melee weapon attack during this spell's duration, your attack deals an extra 1d6 psychic damage. Additionally, if the target is a creature, it must make a Wisdom saving throw or be frightened of you until the spell ends. As an action, the creature can make a Wisdom check against your spell save DC to steel its resolve and end this spell."
+    },
+    {
+        "name": "Aid",
+        "level": 2,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "30 feet",
+            "isConcentration": false,
+            "duration": "8 hours"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a tiny strip of white cloth"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "Your spell bolsters your allies with toughness and resolve. Choose up to three creatures within range. Each target's hit point maximum and current hit points increase by 5 for the duration.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 3rd level or higher, a target's hit points increase by an additional 5 for each slot level above 2nd. "
+    },
+    {
+        "name": "Branding Smite",
+        "level": 2,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "The next time you hit a creature with a weapon attack before this spell ends, the weapon gleams with astral radiance as you strike. The attack deals an extra 2d6 radiant damage to the target, which becomes visible if it is invisible, and the target sheds dim light in a 5-foot radius and can't become invisible until the spell ends.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 3rd level or higher, the extra damage increases by 1d6 for each slot level above 2nd. "
+    },
+    {
+        "name": "Find Steed",
+        "level": 2,
+        "school": "Conjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "10 minutes",
+            "range": "30 feet",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "You summon a spirit that assumes the form of an unusually intelligent, strong, and loyal steed, creating a long-lasting bond with it. Appearing in an unoccupied space within range, the steed takes on a form that you choose, such as a warhorse, a pony, a camel, an elk, or a mastiff. (Your DM might allow other animals to be summoned as steeds.) The steed has the statistics of the chosen form, though it is a celestial, fey, or fiend (your choice) instead of its normal type. Additionally, if your steed has an Intelligence of 5 or less, its Intelligence becomes 6, and it gains the ability to understand one language of your choice that you speak.<br> Your steed serves you as a mount, both in combat and out, and you have an instinctive bond with it that allows you to fight as a seamless unit. While mounted on your steed, you can make any spell you cast that targets only you also target your steed.<br> When the steed drops to 0 hit points, it disappears, leaving behind no physical form. You can also dismiss your steed at any time as an action, causing it to disappear. In either case, casting this spell again summons the same steed, restored to its hit point maximum.<br> While your steed is within 1 mile of you, you can communicate with it telepathically.<br> You can't have more than one steed bonded by this spell at a time. As an action, you can release the steed from its bond at any time, causing it to disappear. "
+    },
+    {
+        "name": "Gentle Repose",
+        "level": 2,
+        "school": "Necromancy",
+        "meta": {
+            "isRitual": true,
+            "sourcebook": "TCE"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "10 days"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a pinch of salt and one copper piece placed on each of the corpse's eyes, which must remain there for the duration"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "You touch a corpse or other remains. For the duration, the target is protected from decay and can't become undead.<br> The spell also effectively extends the time limit on raising the target from the dead, since days spent under the influence of this spell don't count against the time limit of spells such as <i>raise dead</i>. "
+    },
+    {
+        "name": "Hold Person",
+        "level": 2,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "60 feet",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a small, straight piece of iron"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "Choose a humanoid that you can see within range. The target must succeed on a Wisdom saving throw or be paralyzed for the duration. At the end of each of its turns, the target can make another Wisdom saving throw. On a success, the spell ends on the target.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 3rd level or higher, you can target on additional humanoid for each slot level above 2nd. The humanoids must be within 30 feet of each other when you target them. "
+    },
+    {
+        "name": "Lesser Restoration",
+        "level": 2,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Devotion"]
+        },
+        "description": "You touch a creature and can end either one disease or one condition afflicting it. The condition can be blinded, deafened, paralyzed, or poisoned."
+    },
+    {
+        "name": "Locate Object",
+        "level": 2,
+        "school": "Divination",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Self",
+            "isConcentration": true,
+            "duration": "up to 10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a forked twig"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "Describe or name an object that is familiar to you. You sense the direction to the object's location, as long as that object is within 1,000 feet of you. If the object is in motion, you know the direction of its movement.<br> The spell can locate a specific object known to you, as long as you have seen it up close - within 30 feet - at least once. Alternatively, the spell can locate the nearest object of a particular kind, such as a certain kind of apparel, jewelry, furniture, tool, or weapon.<br> This spell can't locate an object if any thickness of lead, even a thin sheet, blocks a direct path between you and the object. "
+    },
+    {
+        "name": "Magic Weapon",
+        "level": 2,
+        "school": "Transmutation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Touch",
+            "isConcentration": true,
+            "duration": "up to 1 hour"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Glory"]
+        },
+        "description": "You touch a nonmagical weapon. Until the spell ends, that weapon becomes a magic weapon with a +1 bonus to attack rolls and damage rolls.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 4th level or higher, the bonus increases to +2. When you use a spell slot of 6th level or higher, the bonus increases to +3. "
+    },
+    {
+        "name": "Misty Step",
+        "level": 2,
+        "school": "Conjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 bonus action",
+            "range": "Self",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["Ancients","Vengeance"]
+        },
+        "description": "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space that you can see."
+    },
+    {
+        "name": "Moonbeam",
+        "level": 2,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "120 feet",
+            "isConcentration": true,
+            "duration": "up to 1 minute"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "several seeds of any moonseed plant and a piece of opalescent feldspar"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["Ancients","Watchers"]
+        },
+        "description": "A silvery beam of pale light shines down in a 5-foot radius, 40-foot-high cylinder centered on a point within range. Until the spell ends, dim light fills the cylinder.<br> When a creature enters the spell's area for the first time on a turn or starts its turn there, it is engulfed in ghostly flames that cause searing pain, and it must make a Constitution saving throw. It takes 2d10 radiant damage on a failed save, or half as much damage on a successful one.<br> A shapechanger makes its saving throw with disadvantage. If it fails, it also instantly reverts to its original form and can't assume a different form until it leaves the spell's light.<br> On each of your turns after you cast this spell, you can use an action to move the beam 60 feet in any direction.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 3rd level or higher, the damage increases by 1d10 for each slot level above 2nd. "
+    },
+    {
+        "name": "Prayer of Healing",
+        "level": 2,
+        "school": "Evocation",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "TCE"
+        },
+        "casting": {
+            "time": "10 minutes",
+            "range": "30 feet",
+            "isConcentration": false,
+            "duration": "Instantaneous"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": false,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "Up to six creatures of your choice that you can see within range each regain hit points equal to 2d8 + your spellcasting ability modifier. This spell has no effect on undead or constructs.<br> <b>At Higher Levels</b>: When you cast this spell using a spell slot of 3rd level or higher, the healing increases by 1d8 for each slot level above 2nd. "
+    },
+    {
+        "name": "Protection from Poison",
+        "level": 2,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "1 hour"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL"]
+        },
+        "description": "You touch a creature. If it is poisoned, you neutralize the poison. If more than one poison afflicts the target, you neutralize on poison that you know is present, or you neutralize one at random.<br> For the duration, the target has advantage on saving throws against being poisoned, and it has resistance to poison damage. "
+    },
+    {
+        "name": "Warding Bond",
+        "level": 2,
+        "school": "Abjuration",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "Touch",
+            "isConcentration": false,
+            "duration": "1 hour"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": true,
+            "materialDescription": "a pair of platinum rings worth at least 50 gp each, which you and target must wear for the duration"
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Crown"]
+        },
+        "description": "This spell wards a willing creature you touch and creates a mystic connection between you and the target until the spell ends. While the target is within 60 feet of you, it gains a +1 bonus to AC and saving throws, and it has resistance to all damage. Also, each time it takes damage, you take the same amount of damage.<br> The spell ends if you drop to 0 hit points or if you and the target become separated by more than 60 feet. It also ends if the spell is cast again on either of the connected creatures. You can also dismiss the spell as an action. "
+    },
+    {
+        "name": "Zone of Truth",
+        "level": 2,
+        "school": "Enchantment",
+        "meta": {
+            "isRitual": false,
+            "sourcebook": "OFFICIAL"
+        },
+        "casting": {
+            "time": "1 action",
+            "range": "60 feet",
+            "isConcentration": false,
+            "duration": "10 minutes"
+        },
+        "components": {
+            "verbal": true,
+            "somatic": true,
+            "material": false,
+            "materialDescription": ""
+        },
+        "classes": {
+            "main": "Paladin",
+            "subclasses": ["ALL","Devotion","Crown"]
+        },
+        "description": "You create a magical zone that guards against deception in a 15-foot-radius sphere centered on a point of your choice within range. Until the spell ends, a creature that enters the spell's area for the first time on a turn or starts its turn there must make a Charisma saving throw. On a failed save, a creature can't speak a deliberate lie while in the radius. You know whether each creature succeeds or fails on its saving throw.<br> An affected creature is aware of the spell and can thus avoid answering questions to which it would normally respond with a lie. Such creatures can be evasive in its answers as long as it remains within the boundaries of the truth. "
+    }
+]
